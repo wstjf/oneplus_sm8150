@@ -25,13 +25,7 @@ jobs:
         git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 aarch64
         git clone https://github.com/snowwolf725/AnyKernel3 -b oneplus7 --depth=1
         rm -rf AnyKernel3/.git
-    - name: Get Version
-      id: get_version
-      run: |
-        git clone --depth 1 -b main https://github.com/tiann/KernelSU
-        cd KernelSU
-        echo "VERSION=$(expr $(git rev-list --count HEAD) + 10200)" >> $GITHUB_OUTPUT
-        cd ..
+
     - name: Build Kernel
       run: |
        export PATH=$(pwd)/clang/bin/:$(pwd)/aarch64/bin/:$PATH
@@ -46,5 +40,5 @@ jobs:
     - name: Upload Kernel-SU
       uses: actions/upload-artifact@v3
       with:
-        name: OP7-LOS20-kernel-SU-${{ steps.get_version.outputs.VERSION }}
+        name: OP7-LOS20-kernel-SU
         path: "AnyKernel3/*"
