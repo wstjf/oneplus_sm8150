@@ -9,20 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
-      CCACHE_NOHASHDIR: "true"
-      CCACHE_MAXSIZE: "2G"
-      CCACHE_HARDLINK: "true"
       KERNEL_DEFCONFIG: "vendor/sm8150-perf_defconfig"
       KERNEL_CMDLINE: "ARCH=arm64 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-androidkernel- CROSS_COMPILE_ARM32=arm-linux-gnueabi- LLVM=1 LLVM_IAS=1 CONFIG_BUILD_ARM64_DT_OVERLAY=n O=out"
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      with:
-        submodules: 'true'
-        fetch-depth: 1
-    - name: Set up ccache
-      uses: hendrikmuhs/ccache-action@v1.2
 
     - name: Install dependencies
       run: |
@@ -37,7 +28,7 @@ jobs:
     - name: Get Version
       id: get_version
       run: |
-        git clone --depth 1 -b v0.6.0 https://github.com/tiann/KernelSU
+        git clone --depth 1 -b main https://github.com/tiann/KernelSU
         cd KernelSU
         echo "VERSION=$(expr $(git rev-list --count HEAD) + 10200)" >> $GITHUB_OUTPUT
         cd ..
@@ -49,8 +40,8 @@ jobs:
        export LD=ld.lld
        export BRAND_SHOW_FLAG=oneplus
        export TARGET_PRODUCT=msmnile
-       make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
-       make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
+       make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC=clang
+       make $KERNEL_CMDLINE CC=clang -j$(nproc --all)
        cp out/arch/arm64/boot/Image AnyKernel3
     - name: Upload Kernel-SU
       uses: actions/upload-artifact@v3
