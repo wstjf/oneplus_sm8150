@@ -29,10 +29,10 @@
 #include <soc/oplus/system/oplus_project.h>
 
 #ifdef OPLUS_FEATURE_CHG_BASIC
-#include "../../supply/qcom/smb5-reg.h"
-#include "../../supply/qcom/schgm-flash.h"
-#include "../../supply/qcom/battery.h"
-#include "../../supply/qcom/step-chg-jeita.h"
+#include "../../../../drivers/power/supply/qcom/smb5-reg.h"
+#include "../../../../drivers/power/supply/qcom/schgm-flash.h"
+#include "../../../../drivers/power/supply/qcom/battery.h"
+#include "../../../../drivers/power/supply/qcom/step-chg-jeita.h"
 #endif
 
 #include <linux/irq.h>
@@ -10569,14 +10569,14 @@ static void oplus_set_otg_switch_status(bool value)
 #ifndef OPLUS_CUSTOM_OP_DEF
 	int level = 0;
 #endif
-	//struct smb_charger *chg = NULL;
+	struct smb_charger *chg = NULL;
 	struct oplus_chg_chip *chip = g_oplus_chip;
 
 	if (!chip) {
 		printk(KERN_ERR "[OPLUS_CHG][%s]: smb5_chg not ready!\n", __func__);
 		return;
 	}
-	//chg = &chip->pmic_spmi.smb5_chip->chg;
+	chg = &chip->pmic_spmi.smb5_chip->chg;
 
 	/*boot-up with newman OTG connected, android will set persist.sys.oplus.otg_support, so...*/
 #ifndef OPLUS_CUSTOM_OP_DEF

@@ -13,7 +13,7 @@ obj-$(CONFIG_SPECTRA_CAMERA) += camera_8150_op/
 else ifeq ($(TARGET_PRODUCT),sm6150)
 obj-$(CONFIG_SPECTRA_CAMERA) += camera_7150/
 else ifeq ($(strip $(TARGET_PRODUCT)),$(filter $(TARGET_PRODUCT),atoll))
-#obj-$(CONFIG_SPECTRA_CAMERA) += camera/
+obj-$(CONFIG_SPECTRA_CAMERA) += camera/
 endif
 obj-$(CONFIG_MSM_AIS) += ais/
 obj-$(CONFIG_TSPP) += broadcast/

@@ -22,8 +22,8 @@
 #include <linux/extcon.h>
 #include <linux/usb/class-dual-role.h>
 #ifdef OPLUS_FEATURE_CHG_BASIC
-#include "../../supply/qcom/storm-watch.h"
-#include "../../supply/qcom/battery.h"
+#include "../../../../drivers/power/supply/qcom/storm-watch.h"
+#include "../../../../drivers/power/supply/qcom/battery.h"
 #include <linux/usb/typec.h>
 #include <linux/usb/usbpd.h>
 #endif
