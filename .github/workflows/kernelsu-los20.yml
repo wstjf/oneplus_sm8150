@@ -37,7 +37,7 @@ jobs:
     - name: Get Version
       id: get_version
       run: |
-        git clone --depth 1 https://github.com/tiann/KernelSU
+        git clone --depth 1 -b v0.6.0 https://github.com/tiann/KernelSU
         cd KernelSU
         echo "VERSION=$(expr $(git rev-list --count HEAD) + 10200)" >> $GITHUB_OUTPUT
         cd ..
